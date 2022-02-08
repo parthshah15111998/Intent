@@ -1,11 +1,12 @@
 package com.example.intent
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -19,12 +20,32 @@ class MainActivity : AppCompatActivity() {
         var send_button=findViewById<Button>(R.id.send_button_id)
         send_button.setOnClickListener {
             val str = send_text.text.toString()
-            val intent=Intent(this,Second_activity::class.java)
+            var intent=Intent(this,Second_activity::class.java)
             intent.putExtra("key",str)
             startActivity(intent)
         }
+        intent=getIntent()
+        var String1=intent.getStringExtra("bye")
+        send_text.setText(String1)
+
+        val button_2=findViewById<Button>(R.id.button_2)
+        button_2.setOnClickListener {
+            val intent=Intent(Intent.ACTION_VIEW)
+            intent.setData(Uri.parse("https://www.javatpoint.com/"))
+            startActivity(intent)
+
+        }
 
     }
+
+   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1){
+            if (requestCode == Activity.RESULT_OK){
+                Toast.makeText(this,data?.getStringExtra("bye"),Toast.LENGTH_LONG).show()
+            }
+        }
+    }*/
 
     override fun onBackPressed() {
     if (backPressedTime + 2000 > System.currentTimeMillis()){
